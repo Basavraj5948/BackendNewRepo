@@ -9,7 +9,7 @@ public interface CustomerRepository extends JpaRepository<CustomerDetails, Integ
 
 	public Iterable<CustomerDetails> findAllByCustomerLoanStatus(String custloanstatus);
 
-	public CustomerDetails findByCustomerId(Integer custid);
+//	public CustomerDetails findByCustomerId(Integer custid);
 
 	
 }

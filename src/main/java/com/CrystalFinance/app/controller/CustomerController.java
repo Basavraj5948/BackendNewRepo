@@ -39,9 +39,6 @@ public class CustomerController {
 	@Autowired
 	CustomerServiceI cs;
 	
-	@Autowired
-	SanctionService scs;
-
 	@PostMapping(value = "/postCustomer", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)	//post all data with multipart file
 	public ResponseEntity<BaseResponse<CustomerDetails>> postCustomer(@RequestPart("allData") String allData,
 			@RequestPart("panCard") MultipartFile file1, @RequestPart("incomeProof") MultipartFile file2,
@@ -160,10 +157,10 @@ public class CustomerController {
 		}
 	}
 	
-	@PutMapping("/createSanctionLetter")
-	public void createSanctionLetter(@RequestBody CustomerDetails customerdetail)
-	{
-		scs.generatePdfReport(customerdetail);
-
-	}
+//	@PutMapping("/createSanctionLetter")
+//	public void createSanctionLetter(@RequestBody CustomerDetails customerdetail)
+//	{
+//		scs.generatePdfReport(customerdetail);
+//
+//	}
 }
