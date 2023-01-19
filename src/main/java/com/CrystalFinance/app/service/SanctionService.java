@@ -8,6 +8,6 @@ public interface SanctionService {
 
 	public CustomerDetails updateCustomer(Integer cstid, CustomerDetails csd);
 
-	public CustomerDetails generateSactionId(CustomerDetails customerDetails, Integer customerid);
+	public CustomerDetails generateSactionId(CustomerDetails customerDetails); /* , Integer customerid */
 
 }

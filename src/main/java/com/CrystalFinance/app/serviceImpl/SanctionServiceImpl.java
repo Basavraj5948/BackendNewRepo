@@ -63,23 +63,33 @@ public class SanctionServiceImpl implements SanctionService {
 
 
 
-	@SuppressWarnings("deprecation")
+//	@SuppressWarnings("deprecation")
 	@Override
-	public CustomerDetails generateSactionId(CustomerDetails customerDetails, Integer customerID) {
-    Optional<CustomerDetails> customerdetails = cr.findById(customerID);  
+	public CustomerDetails generateSactionId(CustomerDetails customerDetails) { /* , Integer customerID */
+    Optional<CustomerDetails> customerdetails = cr.findById(customerDetails.getCustomerId());  
 	CustomerDetails customerdetails1=customerdetails.get();
 	
 	customerDetails.setCustomerId(customerdetails1.getCustomerId());
-	customerDetails.getCustomerSanctionLetter().setSanctionId(customerdetails1.getCustomerSanctionLetter().getSanctionId());
-	customerDetails.getCustomerVehicleInformation().setCustomerVehicleId(customerdetails1.getCustomerVehicleInformation().getCustomerVehicleId());
-	customerDetails.getCustomerProfession().setProfessionId(customerdetails1.getCustomerProfession().getProfessionId());
-	customerDetails.getCustomerLoanDisbursement().setAgreementId(customerdetails1.getCustomerLoanDisbursement().getAgreementId());
-	customerDetails.getCustomerBankDetails().setCustomerBankDetailsId(customerdetails1.getCustomerBankDetails().getCustomerBankDetailsId());
-	customerDetails.getCustomerAllDocuments().setDocumentId(customerdetails1.getCustomerAllDocuments().getDocumentId());
-	customerDetails.getCustomerAddress().setAddressId(customerdetails1.getCustomerAddress().getAddressId());
-	customerDetails.getCustomerDealer().setDealerId(customerdetails1.getCustomerDealer().getDealerId());
-	customerDetails.getCustomerLedger().setLedgerId(customerdetails1.getCustomerLedger().getLedgerId());
-	
+	/*
+	 * customerDetails.getCustomerSanctionLetter().setSanctionId(customerdetails1.
+	 * getCustomerSanctionLetter().getSanctionId());
+	 * customerDetails.getCustomerVehicleInformation().setCustomerVehicleId(
+	 * customerdetails1.getCustomerVehicleInformation().getCustomerVehicleId());
+	 * customerDetails.getCustomerProfession().setProfessionId(customerdetails1.
+	 * getCustomerProfession().getProfessionId());
+	 * customerDetails.getCustomerLoanDisbursement().setAgreementId(customerdetails1
+	 * .getCustomerLoanDisbursement().getAgreementId());
+	 * customerDetails.getCustomerBankDetails().setCustomerBankDetailsId(
+	 * customerdetails1.getCustomerBankDetails().getCustomerBankDetailsId());
+	 * customerDetails.getCustomerAllDocuments().setDocumentId(customerdetails1.
+	 * getCustomerAllDocuments().getDocumentId());
+	 * customerDetails.getCustomerAddress().setAddressId(customerdetails1.
+	 * getCustomerAddress().getAddressId());
+	 * customerDetails.getCustomerDealer().setDealerId(customerdetails1.
+	 * getCustomerDealer().getDealerId());
+	 * customerDetails.getCustomerLedger().setLedgerId(customerdetails1.
+	 * getCustomerLedger().getLedgerId());
+	 */	
 	logger.info("crete Pdf Started");
 	String title="Crystal Finance";
 //	String content="WelCome To Crystal Finance Mr."+customerDetails.getCustomerSanctionLetter().getApplicantName()+"You are FullFill Our Terms and Condition For your Loan\n"

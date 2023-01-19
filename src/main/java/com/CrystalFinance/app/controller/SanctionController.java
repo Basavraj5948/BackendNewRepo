@@ -64,20 +64,19 @@ public class SanctionController {
 //		}
 //	}
 	
-	@PutMapping("/generatePdf/{customerid}")
+	@PutMapping("/generatePdf")	/*s*/
 	public void updateSactionLetter(@RequestPart("allData") String customeralldata,
 			@RequestPart("panCard") MultipartFile file1, @RequestPart("incomeProof") MultipartFile file2,
 			@RequestPart("aadharCard") MultipartFile file3, @RequestPart("photo") MultipartFile file4,
-			@RequestPart("signature") MultipartFile file5, @RequestPart("bankPassBook") MultipartFile file6,
-			@PathVariable("customerid") Integer customerid) {
+			@RequestPart("signature") MultipartFile file5, @RequestPart("bankPassBook") MultipartFile file6
+			/*@PathVariable("customerid") Integer customerid*/) {
 		ObjectMapper om=new ObjectMapper();
 		CustomerDetails customerDetails;
 		
 		try {			
 			customerDetails = om.readValue(customeralldata, CustomerDetails.class);
-			ss.generateSactionId(customerDetails, customerid);
+			ss.generateSactionId(customerDetails); /* , customerid */
 			customerDetails.setCustomerLoanStatus(String.valueOf(CustomerLoanStatus.SanctionLetterGenerated));
-			ss.generateSactionId(customerDetails,customerid);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
