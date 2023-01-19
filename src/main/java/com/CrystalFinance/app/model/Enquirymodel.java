@@ -18,12 +18,12 @@ public class Enquirymodel {
 	private String customerFirstName;
 	private String customerLastName;
 	private String panCard;
-	private Integer aadharNumber;
+	private Long aadharNumber;
 	private String emailId;
 //	@Enumerated(EnumType.STRING)    //optional
 	private String cibilStatus;
 	private Integer cibilScore;
-	private Double mobileNumber;
+	private Long mobileNumber;
 	
 
 }

@@ -38,8 +38,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CustomerController {
 	@Autowired
 	CustomerServiceI cs;
-//	@Autowired
-//	CustomerDetails customerdetails;
 	
 	@Autowired
 	SanctionService scs;
@@ -50,7 +48,7 @@ public class CustomerController {
 			@RequestPart("aadharCard") MultipartFile file3, @RequestPart("photo") MultipartFile file4,
 			@RequestPart("signature") MultipartFile file5, @RequestPart("bankPassBook") MultipartFile file6) {
 
-		// System.out.println(allData);
+		
 		BaseResponse bs = null;
 		ObjectMapper om = new ObjectMapper();
 		try {
