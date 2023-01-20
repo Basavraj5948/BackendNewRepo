@@ -1,8 +1,8 @@
 package com.CrystalFinance.app.service;
 
-import java.util.Optional;
-
+import com.CrystalFinance.app.exception.PdfNotGenerated;
 import com.CrystalFinance.app.model.CustomerDetails;
+import com.CrystalFinance.app.model.Email;
 import com.CrystalFinance.app.model.SanctionLetter;
 
 public interface SanctionService {
@@ -11,8 +11,6 @@ public interface SanctionService {
 
 	public CustomerDetails updateCustomer(Integer cstid, CustomerDetails csd);
 
-	public Optional<CustomerDetails> findById(Integer customerId);
-
-	public CustomerDetails generateSactionId(Integer customerId, SanctionLetter santionletter);
+	public CustomerDetails generateSactionId(Integer customerid, SanctionLetter sanctionLetter, Email email) throws PdfNotGenerated;
 
 }

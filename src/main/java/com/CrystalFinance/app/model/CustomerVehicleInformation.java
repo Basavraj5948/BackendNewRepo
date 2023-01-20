@@ -18,7 +18,8 @@ public class CustomerVehicleInformation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer customerVehicleId;
 	private String customerVehicleModel;
-//	private String customerVehicleChassis;
+	private String customerVehicleChassisNumber;
+	private Double customerVehiclePrice;
 //	private String customervehicleNumber;
 //	private String customerVehicleRcNumber; 
 

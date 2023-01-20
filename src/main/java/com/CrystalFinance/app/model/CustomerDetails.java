@@ -36,6 +36,7 @@ public class CustomerDetails {
 	private String customerQualification;
 	private Integer customerCibilScore;
 	private String customerLoanStatus;
+	private Double customerLoanAmountRequired;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private AllDocuments customerAllDocuments;
