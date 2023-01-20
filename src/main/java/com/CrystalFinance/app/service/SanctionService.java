@@ -11,6 +11,6 @@ public interface SanctionService {
 
 	public CustomerDetails updateCustomer(Integer cstid, CustomerDetails csd);
 
-	public CustomerDetails generateSactionId(Integer customerid, SanctionLetter sanctionLetter, Email email) throws PdfNotGenerated;
+	public CustomerDetails generateSactionId(Integer customerid, SanctionLetter sanctionLetter) throws PdfNotGenerated;
 
 }

@@ -48,8 +48,6 @@ public class SanctionServiceImpl implements SanctionService {
 	@Autowired
 	CustomerRepository cr;
 
-	@Autowired
-	JavaMailSender sender;
 
 	@Value("${spring.mail.username}")
 	private String fromEmail;
@@ -76,10 +74,11 @@ public class SanctionServiceImpl implements SanctionService {
 
 //	@SuppressWarnings("deprecation")
 	@Override
-	public CustomerDetails generateSactionId(Integer customerID, SanctionLetter sanctionLetter ,Email email) throws PdfNotGenerated {
+	public CustomerDetails generateSactionId(Integer customerID, SanctionLetter sanctionLetter) throws PdfNotGenerated {
 		Optional<CustomerDetails> customerdetails = cr.findById(customerID);
 		CustomerDetails customerdetails1 = customerdetails.get();
 		if(customerdetails.isPresent()) {
+			customerdetails1.setCustomerLoanStatus(String.valueOf(CustomerLoanStatus.SanctionLetterGenerated));
 			customerdetails1.getCustomerSanctionLetter().setSanctionDate(sanctionLetter.getSanctionDate());
 			customerdetails1.getCustomerSanctionLetter().setApplicantName(sanctionLetter.getApplicantName());
 			customerdetails1.getCustomerSanctionLetter().setLoanAmountSanctioned(sanctionLetter.getLoanAmountSanctioned());
@@ -88,7 +87,7 @@ public class SanctionServiceImpl implements SanctionService {
 			customerdetails1.getCustomerSanctionLetter().setMonthlyEmiAmount(sanctionLetter.getMonthlyEmiAmount());
 			customerdetails1.getCustomerSanctionLetter().setTermsAndCondition(sanctionLetter.getTermsAndCondition());
 
-			logger.info("Loan Disbursement PDF started");
+			logger.info("Sanction Letter PDF Generation Started");
 			String title = "Crystal Finance Ltd.";
 
 			Document document = new Document(PageSize.A4);
@@ -185,34 +184,8 @@ public class SanctionServiceImpl implements SanctionService {
 
 			document.close();
 			ByteArrayInputStream byt = new ByteArrayInputStream(opt.toByteArray());
-
-			MimeMessage mimemessage = sender.createMimeMessage();
-
-			try {
-				MimeMessageHelper mimemessageHelper = new MimeMessageHelper(mimemessage, true);
-				mimemessageHelper.setFrom(email.getFromEmail());
-				mimemessageHelper.setTo(customerdetails1.getCustomerEmail());
-				mimemessageHelper.setSubject("Crystal Finance Ltd. Sanction Letter");
-				String text = "Dear " + customerdetails1.getCustomerLastName() + customerdetails1.getCustomerFirstName() + customerdetails1.getCustomerMiddleName()
-						+ ",\n" + "\n"
-						+ "This letter is to inform you that we have reviewed your request for a credit loan . We are pleased to offer you a credit loan of "
-						+ customerdetails1.getCustomerSanctionLetter().getLoanAmountSanctioned() + " for "
-						+ customerdetails1.getCustomerSanctionLetter().getLoanTenure() + ".\n" + "\n"
-						+ "We are confident that you will manage your credit loan responsibly, and we look forward to your continued business.\n"
-						+ "\n"
-						+ "Should you have any questions about your credit loan, please do not hesitate to contact us.\n"
-						+ "\n" + "Thank you for your interest in our services.";
-
-				mimemessageHelper.setText(text);
-				byte[] bytearray = byt.readAllBytes();
-
-				mimemessageHelper.addAttachment("loanSanctionLetter.pdf", new ByteArrayResource(bytearray));
-				sender.send(mimemessage);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
+			byte[] bytes = byt.readAllBytes();
+			customerdetails1.getCustomerSanctionLetter().setSanctionLetter(bytes);
 			return cr.save(customerdetails1);
 
 		}

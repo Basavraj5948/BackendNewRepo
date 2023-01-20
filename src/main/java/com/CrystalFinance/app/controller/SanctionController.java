@@ -74,11 +74,11 @@ public class SanctionController {
 	
 	@PutMapping("/generatePdf/{customerid}")
 	public ResponseEntity<BaseResponse<CustomerDetails>> updateSactionLetter(@PathVariable("customerid") Integer customerid, @RequestBody SanctionLetter sanctionLetter)throws PdfNotGenerated {
-		Email email = new Email();
+//		Email email = new Email();
 		CustomerDetails customerdetail = new CustomerDetails();
-			email.setFromEmail(fromEmail);
-			CustomerDetails customerdetails = ss.generateSactionId(customerid, sanctionLetter, email);
-			customerdetail.setCustomerLoanStatus(String.valueOf(CustomerLoanStatus.SanctionLetterGenerated));
+//			email.setFromEmail(fromEmail);
+			CustomerDetails customerdetails = ss.generateSactionId(customerid, sanctionLetter);
+			
 			BaseResponse br = new BaseResponse<>(200,"Sanction Letter Generated", customerdetails);
 			return new ResponseEntity<BaseResponse<CustomerDetails>>(br, HttpStatus.OK);
 

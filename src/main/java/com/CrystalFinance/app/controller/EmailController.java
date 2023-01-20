@@ -1,18 +1,25 @@
 package com.CrystalFinance.app.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.CrystalFinance.app.exception.CustomerNotFound;
+import com.CrystalFinance.app.model.CustomerDetails;
 import com.CrystalFinance.app.model.Email;
 import com.CrystalFinance.app.model.Enquirymodel;
+import com.CrystalFinance.app.model.SanctionLetter;
 import com.CrystalFinance.app.repsonse.BaseResponse;
+import com.CrystalFinance.app.service.CustomerServiceI;
 import com.CrystalFinance.app.service.EmailService;
 
 @RestController
@@ -26,6 +33,9 @@ public class EmailController
 	
 	@Autowired
 	EmailService emailservice;
+	
+	@Autowired
+	CustomerServiceI cs;
 	
 	@Value("${spring.mail.username}")
 	private String fromEmail;
@@ -96,8 +106,26 @@ public class EmailController
 	        BaseResponse<Enquirymodel> baseResponse = new BaseResponse<Enquirymodel>(200,"Mail Send successfully for Rejected Customer",enq);
 	        return new ResponseEntity<BaseResponse<Enquirymodel>>(baseResponse,HttpStatus.OK);
 		}
+	
+	}
+	
+	@PostMapping("/sendSantionLetterMail/{customerId}")
+	public ResponseEntity<BaseResponse<SanctionLetter>> sendSanctionLetterMail(@PathVariable("customerId") Integer customerId)
+	{
+		Optional<CustomerDetails> customerdetail = cs.findById(customerId);
+		if(customerdetail.isPresent())
+		{
+			CustomerDetails customerDetails = customerdetail.get();
+			emailservice.sendSantionLetterMail(customerDetails);
+			
+			
+		}
+		else
+		{
+			throw new CustomerNotFound();
+		}
 		
-		
+		return null;
 	}
 	
 }
