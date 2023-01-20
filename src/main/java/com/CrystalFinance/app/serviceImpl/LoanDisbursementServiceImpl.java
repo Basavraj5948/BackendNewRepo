@@ -19,8 +19,9 @@ public class LoanDisbursementServiceImpl implements LoanDisbursementService {
 	public CustomerDetails updateloanDisbursement( CustomerDetails cst)
 	{
 
-		return null;
+		CustomerDetails savedcustomer = cr.save(cst);
 		
+		return savedcustomer;
 	}
 	
 	@Override
