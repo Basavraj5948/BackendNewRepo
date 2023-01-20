@@ -1,6 +1,7 @@
 package com.CrystalFinance.app.controller;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.CrystalFinance.app.enums.CustomerLoanStatus;
 import com.CrystalFinance.app.exception.CustomerNotFound;
 import com.CrystalFinance.app.model.CustomerDetails;
+import com.CrystalFinance.app.model.SanctionLetter;
 import com.CrystalFinance.app.repsonse.BaseResponse;
 import com.CrystalFinance.app.service.SanctionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,40 +50,17 @@ public class SanctionController {
 		}
 	}
 
+
+	@PutMapping("/generatePdf/{customerId}")
+	public ResponseEntity<BaseResponse<CustomerDetails>> updateSanctionLetter(@PathVariable("customerId") Integer customerId, 
+			                                                                  @RequestBody SanctionLetter santionletter)
+	{
 	
-//	@PutMapping(value = "/updateCustomer/{cstid}")	//update customer by id
-//	public ResponseEntity<BaseResponse<CustomerDetails>> updateCustomer(@PathVariable Integer cstid,
-//			@RequestPart("allData") String allData) throws IOException {
-//		ObjectMapper om = new ObjectMapper();
-//		if(allData.isEmpty()) {
-//			throw new CustomerNotFound();
-//		}else {
-//			CustomerDetails csd = om.readValue(allData, CustomerDetails.class);
-//
-//			csd.setCustomerLoanStatus(String.valueOf(CustomerLoanStatus.SanctionLetterGenerated));
-//			CustomerDetails customerdetails = ss.updateCustomer(cstid, csd);
-//			BaseResponse br = new BaseResponse<>(201, "Data Successfully Updated..", customerdetails);
-//			return new ResponseEntity<BaseResponse<CustomerDetails>>(br, HttpStatus.ACCEPTED);
-//		}
-//	}
-	
-	@PutMapping("/generatePdf")	/*s*/
-	public void updateSactionLetter(@RequestPart("allData") String customeralldata,
-			@RequestPart("panCard") MultipartFile file1, @RequestPart("incomeProof") MultipartFile file2,
-			@RequestPart("aadharCard") MultipartFile file3, @RequestPart("photo") MultipartFile file4,
-			@RequestPart("signature") MultipartFile file5, @RequestPart("bankPassBook") MultipartFile file6
-			/*@PathVariable("customerid") Integer customerid*/) {
-		ObjectMapper om=new ObjectMapper();
-		CustomerDetails customerDetails;
+		    System.out.println(santionletter);
+			CustomerDetails customerDetails = ss.generateSactionId(customerId,santionletter);
+			BaseResponse br = new BaseResponse<>(200, "Data Successfully Updated..", customerDetails);
+			return new ResponseEntity<BaseResponse<CustomerDetails>>(br, HttpStatus.OK);
 		
-		try {			
-			customerDetails = om.readValue(customeralldata, CustomerDetails.class);
-			ss.generateSactionId(customerDetails); /* , customerid */
-			customerDetails.setCustomerLoanStatus(String.valueOf(CustomerLoanStatus.SanctionLetterGenerated));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
 	}
 	
 }

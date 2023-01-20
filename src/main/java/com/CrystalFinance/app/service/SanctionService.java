@@ -1,6 +1,9 @@
 package com.CrystalFinance.app.service;
 
+import java.util.Optional;
+
 import com.CrystalFinance.app.model.CustomerDetails;
+import com.CrystalFinance.app.model.SanctionLetter;
 
 public interface SanctionService {
 
@@ -8,6 +11,8 @@ public interface SanctionService {
 
 	public CustomerDetails updateCustomer(Integer cstid, CustomerDetails csd);
 
-	public CustomerDetails generateSactionId(CustomerDetails customerDetails); /* , Integer customerid */
+	public Optional<CustomerDetails> findById(Integer customerId);
+
+	public CustomerDetails generateSactionId(Integer customerId, SanctionLetter santionletter);
 
 }
