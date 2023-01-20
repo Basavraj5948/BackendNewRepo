@@ -195,4 +195,24 @@ public class SanctionServiceImpl implements SanctionService {
 			
 		}
 
+	@Override
+	public Optional<CustomerDetails> findById(Integer cusid)
+	{
+		Optional<CustomerDetails> findById = cr.findById(cusid);
+		return findById;
+	}
+
+	@Override
+	public Iterable<CustomerDetails> findByLoanStatus(String loanStatus) 
+	{
+		return cr.findAllByCustomerLoanStatus(loanStatus);
+		
+	}
+
+	@Override
+	public CustomerDetails changeStatus(CustomerDetails customerDetails)
+	{
+		return cr.save(customerDetails);
+	}
+
 }

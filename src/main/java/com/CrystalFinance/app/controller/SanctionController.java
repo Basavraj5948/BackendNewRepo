@@ -1,6 +1,7 @@
 package com.CrystalFinance.app.controller;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -83,5 +84,38 @@ public class SanctionController {
 			return new ResponseEntity<BaseResponse<CustomerDetails>>(br, HttpStatus.OK);
 
 	}
+	
+	 @PutMapping("/sanctionUpdate/{cusid}")
+	  public ResponseEntity<BaseResponse<CustomerDetails>> sanctionUpdate(@PathVariable("cusid") Integer cusid,@RequestBody String loanStatus){
+		Optional<CustomerDetails> findById = ss.findById(cusid);
+		CustomerDetails customerDetails = findById.get();
+		
+		if(findById.isPresent()) {
+			if(loanStatus.equals("Accepted")) {
+				customerDetails.setCustomerLoanStatus(String.valueOf(CustomerLoanStatus.SanctionLetterApproved));
+			}
+			else if(loanStatus.equals("Rejected")) 
+			{
+				customerDetails.setCustomerLoanStatus(String.valueOf(CustomerLoanStatus.SanctionLetterRejected));
+			}
+			  
+		}
+		else 
+		{
+			throw new CustomerNotFound();
+		}
+		CustomerDetails customerData = ss.changeStatus(customerDetails);
+		BaseResponse baseResponse=new BaseResponse(200,"Sanction Letter status Updated",customerData);
+		return new ResponseEntity<BaseResponse<CustomerDetails>>(baseResponse,HttpStatus.OK);
+	}
+	
+	@GetMapping("/sanctionLetterStatus/{loanStatus}")
+	public ResponseEntity<BaseResponse<Iterable<CustomerDetails>>> sanctionletterstatus(@PathVariable("loanStatus") String loanStatus)
+	{
+		Iterable<CustomerDetails> findByLoanStatus = ss.findByLoanStatus(loanStatus);
+		BaseResponse baseResponse=new BaseResponse<>(200,"All Data",findByLoanStatus);
+		return new ResponseEntity<BaseResponse<Iterable<CustomerDetails>>>(baseResponse,HttpStatus.OK);
+	}
+
 	
 }

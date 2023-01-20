@@ -16,17 +16,9 @@ public class LoanDisbursementServiceImpl implements LoanDisbursementService {
 	CustomerRepository cr;
 	
 	@Override
-	public CustomerDetails updateloanDisbursement( CustomerDetails cst) {
-//		Optional<CustomerDetails> findByCustomerId=cr.findById(cstid);
-//		cst.setCustomerId(cstid);
-//		if(findByCustomerId.isPresent()) {
-//			CustomerDetails cs=cr.save(cst);
-//			return cs;
-//		}
-//		else {
-//			throw new CustomerNotFound();
-//		}
-//		
+	public CustomerDetails updateloanDisbursement( CustomerDetails cst)
+	{
+
 		return null;
 		
 	}
