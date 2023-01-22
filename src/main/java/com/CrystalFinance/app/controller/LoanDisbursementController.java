@@ -23,10 +23,9 @@ import com.CrystalFinance.app.service.LoanDisbursementService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/LoanDisbursement")
-@CrossOrigin("*")
 public class LoanDisbursementController {
 	@Autowired
 	LoanDisbursementService ls;
@@ -49,7 +48,7 @@ public class LoanDisbursementController {
 			customerdata.getCustomerLoanDisbursement().setDealerBankIfscNumber(loandisbursement.getDealerBankIfscNumber());
 			
 			CustomerDetails customerdetails=ls.updateloanDisbursement(customerdata);
-			BaseResponse br= new BaseResponse<>(200,"Loan Disbursed",customerdetails);
+			BaseResponse br= new BaseResponse<>(200,"Loan Disbursed successfully !!!!",customerdetails);
 			return new ResponseEntity<BaseResponse<CustomerDetails>>(br,HttpStatus.OK);
 		}		
 	}

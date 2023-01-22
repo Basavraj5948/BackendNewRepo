@@ -126,8 +126,8 @@ public class EnquiryController {
 //	        		+ "Thank You For Banking With Us \n\n"
 //	        		+ "Crystal Finance Ltd.....!!!!");
 //	        emailservice.sendMail(email);
-	        BaseResponse<Enquirymodel> baseResponse = new BaseResponse<Enquirymodel>(404,"CIBIL Rejected",enquiry);
-			return new ResponseEntity<BaseResponse<Enquirymodel>>(baseResponse,HttpStatus.NOT_FOUND);
+	        BaseResponse<Enquirymodel> baseResponse = new BaseResponse<Enquirymodel>(200,"CIBIL Rejected",enquiry);
+			return new ResponseEntity<BaseResponse<Enquirymodel>>(baseResponse,HttpStatus.OK);
 		}
 		
 		

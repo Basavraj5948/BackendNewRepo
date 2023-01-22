@@ -27,10 +27,7 @@ public class LoanDisbursementServiceImpl implements LoanDisbursementService {
 	@Override
 	public Optional<CustomerDetails> finddById(Integer cstid) 
 	{
-//		  Optional<CustomerDetails> data = cr.findById(cstid);
-//		  System.out.println(data);
 		 Optional<CustomerDetails> data = cr.findById(cstid);
-		 System.out.println(data);
 		  return data;
 		
 	}

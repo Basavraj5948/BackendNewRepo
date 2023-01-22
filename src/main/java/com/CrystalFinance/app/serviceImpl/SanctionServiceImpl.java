@@ -99,7 +99,7 @@ public class SanctionServiceImpl implements SanctionService {
 			String content2 = "\n\nWe hope that you find the terms and conditions of this loan satisfactory "
 					+ "and that it will help you meet your financial needs.\n\nIf you have any questions or need any assistance regarding your loan, "
 					+ "please do not hesitate to contact us.\n\nWe wish you all the best and thank you for choosing us."
-					+ "\n\nSincerely,\n\n" + "James Smith (Credit manager)";
+					+ "\n\nSincerely,\n\n" + "Vishal Giri(B.Tech) (Credit manager)";
 
 			ByteArrayOutputStream opt = new ByteArrayOutputStream();
 

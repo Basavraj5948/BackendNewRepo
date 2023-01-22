@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -109,23 +110,22 @@ public class EmailController
 	
 	}
 	
-	@PostMapping("/sendSantionLetterMail/{customerId}")
-	public ResponseEntity<BaseResponse<SanctionLetter>> sendSanctionLetterMail(@PathVariable("customerId") Integer customerId)
+	@GetMapping("/sendSantionLetterMail/{customerId}")
+	public ResponseEntity<BaseResponse<CustomerDetails>> sendSanctionLetterMail(@PathVariable("customerId") Integer customerId)
 	{
+		System.out.println("Mail sending started");
 		Optional<CustomerDetails> customerdetail = cs.findById(customerId);
+		CustomerDetails customerDetails = customerdetail.get();
 		if(customerdetail.isPresent())
 		{
-			CustomerDetails customerDetails = customerdetail.get();
 			emailservice.sendSantionLetterMail(customerDetails);
-			
-			
 		}
 		else
 		{
 			throw new CustomerNotFound();
 		}
-		
-		return null;
+		BaseResponse<CustomerDetails> baseResponse = new BaseResponse<CustomerDetails>(200,"Mail Send successfully!!!!",customerDetails);
+		return new ResponseEntity<BaseResponse<CustomerDetails>>(baseResponse,HttpStatus.OK);
 	}
 	
 }
