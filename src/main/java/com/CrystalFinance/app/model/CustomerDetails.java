@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
@@ -59,7 +60,7 @@ public class CustomerDetails {
 	@OneToOne(cascade = CascadeType.ALL)
 	private LoanDisbursement customerLoanDisbursement;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private Ledger customerLedger;
 	
 	@OneToOne(cascade = CascadeType.ALL)
